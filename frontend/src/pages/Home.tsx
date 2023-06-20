@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import Filters from "../components/Filters";
 import Product from "../interfaces/product";
 import Footer from "../components/Footer";
+import Cart from "../components/Cart";
 
 const link =
   "https://espetinhodesucesso.com.br/wp-content/uploads/2021/11/O-que-fazer-com-caldo-de-carne-que-sobrou-pirao.jpg";
@@ -18,6 +19,14 @@ const link =
 
   const filterHandler = (arg: string, products: Product[]) => {
     return products.filter(item => item.name.toLocaleLowerCase().includes(arg.toLocaleLowerCase()))
+  }
+
+  const cartHandler = () => {
+    if (localStorage.getItem("cart")) {
+      const cartStorage = localStorage.getItem("cart") || '';
+      const cart = JSON.parse(cartStorage);
+      return cart
+    }
   }
 
 const example = [
@@ -76,6 +85,7 @@ export default function Home() {
           ))
         ) }
       </div>
+      <Cart list={cartHandler()} />
       <Footer />
     </main>
   );
