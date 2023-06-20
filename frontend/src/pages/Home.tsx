@@ -17,7 +17,7 @@ const link =
   };
 
   const filterHandler = (arg: string, products: Product[]) => {
-    return products.filter(item => item.name.includes(arg))
+    return products.filter(item => item.name.toLocaleLowerCase().includes(arg.toLocaleLowerCase()))
   }
 
 const example = [
