@@ -14,6 +14,7 @@ const link =
       const cart = JSON.parse(cartStorage);
       cart.push(product);
       localStorage.setItem("cart", JSON.stringify(cart));
+
     }
   };
 
@@ -21,13 +22,13 @@ const link =
     return products.filter(item => item.name.toLocaleLowerCase().includes(arg.toLocaleLowerCase()))
   }
 
-  const cartHandler = () => {
-    if (localStorage.getItem("cart")) {
-      const cartStorage = localStorage.getItem("cart") || '';
-      const cart = JSON.parse(cartStorage);
-      return cart
-    }
-  }
+  // const cartHandler = () => {
+  //   if (localStorage.getItem("cart")) {
+  //     const cartStorage = localStorage.getItem("cart") || '';
+  //     const cart = JSON.parse(cartStorage);
+  //     return cart
+  //   }
+  // }
 
 const example = [
   { id: "1", image: link, name: "caldo de mandioca", price: "123" },
@@ -39,6 +40,14 @@ const example = [
 export default function Home() {
   const [list, setList] = useState(example);
   const [filter, setFilter] = useState('')
+  const [cart, setCart] = useState([])
+  useEffect(() => {
+    if (localStorage.getItem("cart")) {
+      const cartStorage = localStorage.getItem("cart") || '';
+      const cart = JSON.parse(cartStorage);
+      setCart(cart)
+    }
+  },[cart])
   useEffect(() => {
     const cart = localStorage.getItem("cart");
     if (!cart) {
@@ -85,7 +94,7 @@ export default function Home() {
           ))
         ) }
       </div>
-      <Cart list={cartHandler()} />
+      <Cart list={cart} />
       <Footer />
     </main>
   );
