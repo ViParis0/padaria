@@ -8,8 +8,8 @@ export default function Filters(props: any) {
   };
 
   return (
-    <div className="position: relative flex">
-      <button type="button" className="p-3" value="comidas" onClick={(e) => handleClick(e)}>
+    <div className="flex bg-red-800 p-2 mt-8 justify-around" id="filter">
+      <button type="button" className="" value="comidas" onClick={(e) => handleClick(e)}>
         Comidas
       </button>
       <button type="button" value="bebidas" onClick={(e) => handleClick(e)}>
