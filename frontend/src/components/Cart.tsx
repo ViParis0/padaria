@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 
 export default function Cart(props: any) {
   return (
-    <div className="relative">
-      <Link to="/cart">
+    <div className="flex">
+      <Link className="absolute top-40 float-right" to="/cart">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
