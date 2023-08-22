@@ -44,6 +44,20 @@ export default function Cart() {
     }
   };
 
+  const removerBtnHandler = (product: CartProduct) => {
+    const stringCart = localStorage.getItem("cart") || "";
+    const cartStorage: CartProduct[] = JSON.parse(stringCart);
+    const productFind: CartProduct | undefined = cartStorage.find(
+      (item) => item.id === product.id
+    );
+    if (productFind) {
+      const index = cartStorage.indexOf(productFind);
+      cartStorage.splice(index, 1);
+    }
+    localStorage.setItem("cart", JSON.stringify(cartStorage));
+    setList(cartStorage);
+  };
+
   const totalHandler = () => {
     return list.reduce(
       (acc, item: CartProduct) =>
@@ -51,6 +65,7 @@ export default function Cart() {
       0
     );
   };
+
 
   return (
     <div>
@@ -62,13 +77,16 @@ export default function Cart() {
           <p>{item.price}</p>
           <button type="button" onClick={() => minusBtnHandler(item)}>-</button>
           <p>{item.count}</p>
-          <button type="button" onClick={() => plusBtnHandler(item)}>
-            +
-          </button>
+          <button type="button" onClick={() => plusBtnHandler(item)}>+</button>
+          <button type="button" onClick={() => removerBtnHandler(item)}>remover</button>
         </div>
       ))}
       <p>Valor da compra:R${totalHandler()}</p>
-      <button type="button">Finalizar Compra</button>
+      { list.length
+        ? <button type="button">Finalizar Compra</button>
+        : <p>Não há produtos em seu carrinho</p>
+      }
+      
     </div>
   );
 }
